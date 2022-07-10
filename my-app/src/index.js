@@ -54,10 +54,10 @@ class Game extends React.Component {
             }],
             stepNumber: 0,
             nextPlayerIsX: true,
-            
+            btnIsPressed: false
         };
     }
-    
+
     handleClick(i) {
         const history = this.state.history.slice(0, this.state.stepNumber + 1);
         const current = history[history.length - 1];
@@ -88,6 +88,7 @@ class Game extends React.Component {
         this.setState({
             stepNumber: step,
             nextPlayerIsX: (step % 2) === 0,
+            btnIsPressed: !this.state.btnIsPressed
         });
     }
 
@@ -98,15 +99,20 @@ class Game extends React.Component {
 
         const moves = history.map((step, move) => {
             const desc = move ?
-                'Go to move #' + move + " (" + step.cols[move] + "," + history[move].rows[move] + ")" : 
+                'Go to move #' + move + " (" + step.cols[move] + "," + step.rows[move] + ")" : 
                 'Go to game start';
-            console.log(history[move])
-            console.log(history[move].cols)
-            console.log('current column: ' + history[move].cols[move])
-            console.log('current row: ' + history[move].rows[move])
+
+            var boldClass = ""
+            if(this.state.btnIsPressed && move == this.state.stepNumber){
+                boldClass = "bold-btn"
+                this.state.btnIsPressed = false
+            } else {
+                boldClass = ""
+            }
+
             return (
                 <li key={move}>
-                    <button onClick={() => this.jumpTo(move)}>{desc}</button>
+                    <button className={boldClass} onClick={() => this.jumpTo(move)}>{desc}{move}</button>
                 </li>
             );
         });
