@@ -166,9 +166,13 @@ class Game extends React.Component {
         if (winner) {
             status = 'Winner: ' + winner;
             winSquares = this.identifyWinningSquares(current.squares)
+        } else if(this.state.stepNumber == 9) {
+            status = 'Draw'
         } else {
+            console.log(this.state.stepNumber)
             status = 'Next player: ' + (this.state.nextPlayerIsX ? 'X' : 'O');
         }
+
 
         let sortDescription;
         if (this.state.isSortAscending) {
