@@ -2,6 +2,26 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
+function calculateWinner(squares) {
+    const lines = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6],
+    ];
+    for (let i = 0; i < lines.length; i++) {
+        const [a, b, c] = lines[i];
+        if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+            return squares[a];
+        }
+    }
+    return null;
+}
+
 function Square(props) {
     return (
         <button className={props.className} onClick={props.onClick}>
@@ -21,20 +41,15 @@ class Board extends React.Component {
     }
 
     render() {
-        console.log(this.props.winSquares)
-
-        const numberOfSquaresToWin = Array(3).fill("")
-
-
         const cols = Array(3).fill("")
 
         const row = (rowOffset) => cols.map((elem, squareNumber) => {
             return (
                 <React.Fragment key={squareNumber}>
-                    {(squareNumber+rowOffset) === this.props.winSquares[0] ? this.renderSquare((squareNumber+rowOffset),"winSquare") :
-                     (squareNumber+rowOffset) === this.props.winSquares[1] ? this.renderSquare((squareNumber+rowOffset),"winSquare") :
-                     (squareNumber+rowOffset) === this.props.winSquares[2] ? this.renderSquare((squareNumber+rowOffset),"winSquare") :
-                     this.renderSquare((squareNumber+rowOffset),"square")}
+                    {(squareNumber + rowOffset) === this.props.winSquares[0] ? this.renderSquare((squareNumber + rowOffset), "winSquare") :
+                        (squareNumber + rowOffset) === this.props.winSquares[1] ? this.renderSquare((squareNumber + rowOffset), "winSquare") :
+                            (squareNumber + rowOffset) === this.props.winSquares[2] ? this.renderSquare((squareNumber + rowOffset), "winSquare") :
+                                this.renderSquare((squareNumber + rowOffset), "square")}
                 </React.Fragment>
             )
         })
@@ -43,7 +58,7 @@ class Board extends React.Component {
         const board = rows.map((elem, rowNumber) => {
             return (
                 <div className="board-row" key={rowNumber}>
-                    {row(rowNumber*rows.length)}
+                    {row(rowNumber * rows.length)}
                 </div>
             )
         })
@@ -111,12 +126,8 @@ class Game extends React.Component {
             isSortAscending: !this.state.isSortAscending
         });
     }
-    setWinState(squares){
-        this.setState({
-            winState: squares
-        });
-    }
-    identifyWinningSquares(squares){
+
+    identifyWinningSquares(squares) {
         const lines = [
             [0, 1, 2],
             [3, 4, 5],
@@ -130,7 +141,7 @@ class Game extends React.Component {
         for (let i = 0; i < lines.length; i++) {
             const [a, b, c] = lines[i];
             if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-                return lines[i]; 
+                return lines[i];
             }
         }
         return null;
@@ -162,17 +173,15 @@ class Game extends React.Component {
         });
 
         let status;
-        let winSquares = [null,null,null];
+        let winSquares = Array(3).fill(null);
         if (winner) {
             status = 'Winner: ' + winner;
             winSquares = this.identifyWinningSquares(current.squares)
-        } else if(this.state.stepNumber == 9) {
+        } else if (this.state.stepNumber == 9) {
             status = 'Draw'
         } else {
-            console.log(this.state.stepNumber)
             status = 'Next player: ' + (this.state.nextPlayerIsX ? 'X' : 'O');
         }
-
 
         let sortDescription;
         if (this.state.isSortAscending) {
@@ -180,7 +189,7 @@ class Game extends React.Component {
         } else {
             sortDescription = 'Sort is Descending';
         }
-        let sort = (this.state.isSortAscending ? moves.reverse() : moves );
+        let sort = (this.state.isSortAscending ? moves.reverse() : moves);
 
         return (
             <div className="game">
@@ -205,23 +214,3 @@ class Game extends React.Component {
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<Game />);
-
-function calculateWinner(squares) {
-    const lines = [
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 4, 8],
-        [2, 4, 6],
-    ];
-    for (let i = 0; i < lines.length; i++) {
-        const [a, b, c] = lines[i];
-        if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-            return squares[a];
-        }
-    }
-    return null;
-}
