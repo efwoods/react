@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import {useEffect} from 'react';
 
 function Square(props) {
     return (
@@ -27,6 +28,28 @@ function Square(props) {
 //     </div>
 // </div>
 class Board extends React.Component {
+    fimes = () => {
+        useEffect(() => {
+            console.log('this.rendersquare of:' + this.props.render)
+            // this.renderSquare()
+        },[]);
+    }
+    timesToRender = (index) => {
+        let count = 0;
+        while(count < index){
+            count = count + 1;
+        }
+    }
+
+    renderSquareOnClick = () => {
+        let val = this.props.render;
+        val = val + 1;
+        // this.props.render = this.props.render + 1;
+        console.log('render:' +this.props.render)
+        console.log('val:' + val)
+    }
+    
+
     renderSquare(i) {
         return (
             <Square
@@ -109,6 +132,7 @@ class Board extends React.Component {
         // }
         return (
             <div>
+                <button onClick={this.renderSquareOnClick}>renderSquareOnClick</button>
                 <div className="board-row">
                     {this.renderSquare(0)}
                     {this.renderSquare(1)}
@@ -228,6 +252,7 @@ class Game extends React.Component {
                     <Board
                         squares={current.squares}
                         onClick={(i) => this.handleClick(i)}
+                        render={0}
                     />
                 </div>
                 <div className="game-info">
