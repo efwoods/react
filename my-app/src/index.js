@@ -51,7 +51,7 @@ class Board extends React.Component {
 
     }
     renderBoardByRows() {
-        const elements = [0,1,2];
+        const elements = [0, 1, 2];
         const items = []
 
         for (const [index, value] of elements.entries()) {
@@ -67,13 +67,79 @@ class Board extends React.Component {
 
 
     render() {
+
+        // times(3,this.renderSquare())
+        // const times = (n) => {
+        //     let i = 0;
+        //     while (++i < n) {
+
+        //     }
+        //   };
+
+        // const row1 = times(5, (i) => this.renderSquare(i));
+
+        // const row2 = [times(3,this.renderSquare())]
+        // const row3 = [times(3,this.renderSquare())]
+
+
+
+        // const times = (n) => {
+        //     let i = 0;
+        //     while (++i < n) {
+                
+        //         {<Square
+        //         value={this.props.squares[i]}
+        //         onClick={() => this.props.onClick(i)}
+                
+        //     />};
+        //     }
+
+        // }
+        // const row = [this.renderSquare(0)]
+        // const times = (n) => {
+        //     let i = 0;
+        //     let row = []
+        //     while(i < n) {
+        //         row.push({this.renderSquare(i)})
+        //         i = i+1
+        //     }
+        //     console.log(row)
+        //     return row
+            
+        // }
         return (
-          <div>
-            {this.renderBoardByRows()}
-          </div>  
-        );
+            <div>
+                <div className="board-row">
+                    {this.renderSquare(0)}
+                    {this.renderSquare(1)}
+                    {this.renderSquare(2)}
+                </div>
+                <div className="board-row">
+                    {this.renderSquare(3)}
+                    {this.renderSquare(4)}
+                    {this.renderSquare(5)}
+                </div>
+                <div className="board-row">
+                    {this.renderSquare(6)}
+                    {this.renderSquare(7)}
+                    {this.renderSquare(8)}
+                </div>
+            </div>
+        )
     }
 }
+
+/* {row2.map((elem, index) => (
+                    <div className="board-row" key={index}>
+                        {elem}
+                    </div>
+                ))}
+                {row3.map((elem, index) => (
+                    <div className="board-row" key={index}>
+                        {elem}
+                    </div>
+                ))} */
+
 
 class Game extends React.Component {
     constructor(props) {
@@ -162,7 +228,6 @@ class Game extends React.Component {
                     <Board
                         squares={current.squares}
                         onClick={(i) => this.handleClick(i)}
-                        squareNumberToRender={this.state.squareNumberToRender}
                     />
                 </div>
                 <div className="game-info">
