@@ -1,6 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import Amplify from 'aws-amplify';
+import config from './aws-exports';
+Amplify.configure(config);
+import logo from "./logo.svg";
+import "@aws-amplify/ui-react/styles.css";
+import {
+  withAuthenticator,
+  Button,
+  Heading,
+  Image,
+  View,
+  Card,
+} from "@aws-amplify/ui-react";
+
+function App({ signOut }) {
+  return (
+    <View className="App">
+      <Card>
+        <Image src={logo} className="App-logo" alt="logo" />
+        <Heading level={1}>We now have Auth!</Heading>
+      </Card>
+      <Button onClick={signOut}>Sign Out</Button>
+    </View>
+  );
+}
+
 
 function calculateWinner(squares) {
     const lines = [
@@ -193,6 +219,7 @@ class Game extends React.Component {
 
         return (
             <div className="game">
+                <App />
                 <div className="game-board">
                     <Board
                         squares={current.squares}
@@ -213,4 +240,4 @@ class Game extends React.Component {
 // ========================================
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<Game />);
+withAuthenticator(root.render(<Game />));
