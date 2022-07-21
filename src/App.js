@@ -1,4 +1,5 @@
 import "@aws-amplify/ui-react/styles.css";
+import logo from './logo.svg';
 import Game from "./Game.js"
 import "./App.css"
 import {
@@ -14,11 +15,13 @@ import {
 function App({ signOut }) {
     return (
         <View className="App">
-            <Button onClick={signOut}>Sign Out</Button>
-            <Card className="amplify-card">
-                {/* <Image src={logo} className="App-logo" alt="logo" /> */}
-                {/* <Heading level={1}>We now have Auth!</Heading> */}
+
+            <Card className="App-header">
+
+            <img src={logo} className="App-logo" alt="logo" />
+
                 <Game />
+                <Button onClick={signOut}>Sign Out</Button>
             </Card>
 
         </View>
