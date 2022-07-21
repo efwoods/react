@@ -1,3 +1,6 @@
 [submodule "tic-tac-toe"]
 	path = tic-tac-toe
 	url = https://github.com/efwoods/tic-tac-toe.git
+[submodule "tensorflow"]
+	path = tensorflow
+	url = https://github.com/efwoods/tensorlfow.git
