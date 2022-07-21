@@ -9,7 +9,7 @@ WORKDIR /usr/src/app
 # COPY package-lock.json /usr/src/app
 COPY . /usr/src/app
 # Install dependencies
-RUN npm install
+RUN yarn install
 
 # Get all the code needed to run the app
 COPY . .
