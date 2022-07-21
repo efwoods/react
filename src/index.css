@@ -60,6 +60,7 @@ ul {
 .game {
     display: flex;
     flex-direction: row;
+    background: rgba(0, 0, 0, 0);
 }
 
 .game-info {
